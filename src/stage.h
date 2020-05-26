@@ -18,33 +18,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-#include "draw.h"
+#include "common.h"
 
-void prepareScene(void) {
-    SDL_SetRenderDrawColor(app.renderer, 32, 32, 32, 255);
-    SDL_RenderClear(app.renderer);
-}
+extern void blit(SDL_Texture *texture, int x, int y);
+extern SDL_Texture *loadTexture(char *filename);
 
-void presentScene(void) {
-    SDL_RenderPresent(app.renderer);
-}
-
-SDL_Texture *loadTexture(char *filename) {
-    SDL_Texture *texture;
-
-    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Loading %s", filename);
-
-    texture = IMG_LoadTexture(app.renderer, filename);
-
-    return texture;
-}
-
-void blit(SDL_Texture *texture, int x, int y) {
-    SDL_Rect dest;
-
-    dest.x = x;
-    dest.y = y;
-    SDL_QueryTexture(texture, NULL, NULL, &dest.w, &dest.h);
-
-    SDL_RenderCopy(app.renderer, texture, NULL, &dest);
-}
+extern App app;
+extern Stage stage;

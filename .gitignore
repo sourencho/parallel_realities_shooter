@@ -2,4 +2,4 @@ bin/
 *.o
 .DS_Store
 *.swp
-shooter
+shooter*
