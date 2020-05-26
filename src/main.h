@@ -29,4 +29,5 @@ extern void blit(SDL_Texture* texture, int x, int y);
 extern void doInput(void);
 
 App app;
+Entity bullet;
 Entity player;

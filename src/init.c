@@ -32,7 +32,7 @@ void initSDL(void) {
         exit(1);
     }
 
-    app.window = SDL_CreateWindow("Shooter 03", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+    app.window = SDL_CreateWindow("Shooter 04", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                                   SCREEN_WIDTH, SCREEN_HEIGHT, windowFlags);
 
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
