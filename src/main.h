@@ -22,8 +22,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 extern void cleanup(void);
 extern void initSDL(void);
+extern SDL_Texture* loadTexture(char* filename);
 extern void prepareScene(void);
 extern void presentScene(void);
 extern void doInput(void);
+extern void blit(SDL_Texture* texture, int x, int y);
 
 App app;
+Entity player;
