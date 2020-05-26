@@ -30,6 +30,7 @@ static void doBullets(void);
 static void drawFighters(void);
 static void drawBullets(void);
 static void spawnEnemies(void);
+static int bulletHitFighter(Entity *b);
 
 static Entity *player;
 static SDL_Texture *bulletTexture;
@@ -62,6 +63,8 @@ static void initPlayer() {
     player->y = 100;
     player->texture = loadTexture("gfx/player.png");
     SDL_QueryTexture(player->texture, NULL, NULL, &player->w, &player->h);
+
+    player->side = SIDE_PLAYER;
 }
 
 static void logic(void) {
@@ -115,9 +118,12 @@ static void fireBullet(void) {
     bullet->dx = PLAYER_BULLET_SPEED;
     bullet->health = 1;
     bullet->texture = bulletTexture;
+    bullet->side = player->side;
     SDL_QueryTexture(bullet->texture, NULL, NULL, &bullet->w, &bullet->h);
 
     bullet->y += (player->h / 2) - (bullet->h / 2);
+
+    bullet->side = SIDE_PLAYER;
 
     player->reload = 8;
 }
@@ -125,11 +131,13 @@ static void fireBullet(void) {
 static void doFighters(void) {
     Entity *e, *prev;
 
+    prev = &stage.fighterHead;
+
     for (e = stage.fighterHead.next; e != NULL; e = e->next) {
         e->x += e->dx;
         e->y += e->dy;
 
-        if (e != player && e->x < -e->w) {
+        if (e != player && (e->x < -e->w || e->health == 0)) {
             if (e == stage.fighterTail) {
                 stage.fighterTail = prev;
             }
@@ -152,7 +160,7 @@ static void doBullets(void) {
         b->x += b->dx;
         b->y += b->dy;
 
-        if (b->x > SCREEN_WIDTH) {
+        if (bulletHitFighter(b) || b->x > SCREEN_WIDTH) {
             if (b == stage.bulletTail) {
                 stage.bulletTail = prev;
             }
@@ -164,6 +172,21 @@ static void doBullets(void) {
 
         prev = b;
     }
+}
+
+static int bulletHitFighter(Entity *b) {
+    Entity *e;
+
+    for (e = stage.fighterHead.next; e != NULL; e = e->next) {
+        if (e->side != b->side && collision(b->x, b->y, b->w, b->h, e->x, e->y, e->w, e->h)) {
+            b->health = 0;
+            e->health = 0;
+
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 static void spawnEnemies(void) {
@@ -181,6 +204,9 @@ static void spawnEnemies(void) {
         SDL_QueryTexture(enemy->texture, NULL, NULL, &enemy->w, &enemy->h);
 
         enemy->dx = -(2 + (rand() % 4));
+
+        enemy->side = SIDE_ALIEN;
+        enemy->health = 1;
 
         enemySpawnTimer = 30 + (rand() % 60);
     }

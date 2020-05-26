@@ -18,14 +18,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-#include "common.h"
+#include "util.h"
 
-extern void cleanup(void);
-extern void doInput(void);
-extern void initSDL(void);
-extern void initStage(void);
-extern void prepareScene(void);
-extern void presentScene(void);
-
-App app;
-Stage stage;
+int collision(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
+    return (MAX(x1, x2) < MIN(x1 + w1, x2 + w2)) && (MAX(y1, y2) < MIN(y1 + h1, y2 + h2));
+}

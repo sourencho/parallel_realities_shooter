@@ -10,6 +10,7 @@ _OBJS += draw.o
 _OBJS += init.o input.o
 _OBJS += main.o
 _OBJS += stage.o
+_OBJS += util.o
 
 OBJS = $(patsubst %,$(OUT)/%,$(_OBJS))
 
@@ -20,7 +21,7 @@ all: $(PROG)
 $(OUT)/%.o: %.c %.h $(DEPS)
 	@mkdir -p $(OUT)
 	$(CC) $(CFLAGS) $(CXXFLAGS) -c -o $@ $<
-	
+
 # cleaning everything that can be automatically recreated with "make".
 clean:
 	$(RM) -rf $(OUT) $(PROG)

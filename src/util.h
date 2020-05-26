@@ -19,13 +19,3 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include "common.h"
-
-extern void cleanup(void);
-extern void doInput(void);
-extern void initSDL(void);
-extern void initStage(void);
-extern void prepareScene(void);
-extern void presentScene(void);
-
-App app;
-Stage stage;
