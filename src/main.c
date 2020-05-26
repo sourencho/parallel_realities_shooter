@@ -20,24 +20,22 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "main.h"
 
-int main(int argc, char *argv[])
-{
-	memset(&app, 0, sizeof(App));
-	
-	initSDL();
-	
-	atexit(cleanup);
-	
-	while (1)
-	{
-		prepareScene();
-		
-		doInput();
-		
-		presentScene();
-		
-		SDL_Delay(16);
-	}
+int main(int argc, char* argv[]) {
+    memset(&app, 0, sizeof(App));
 
-	return 0;
+    initSDL();
+
+    atexit(cleanup);
+
+    while (1) {
+        prepareScene();
+
+        doInput();
+
+        presentScene();
+
+        SDL_Delay(16);
+    }
+
+    return 0;
 }

@@ -20,20 +20,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "input.h"
 
-void doInput(void)
-{
-	SDL_Event event;
-	
-	while (SDL_PollEvent(&event))
-	{
-		switch (event.type)
-		{
-			case SDL_QUIT:
-				exit(0);
-				break;
+void doInput(void) {
+    SDL_Event event;
 
-			default:
-				break;
-		}
-	}
+    while (SDL_PollEvent(&event)) {
+        switch (event.type) {
+            case SDL_QUIT:
+                exit(0);
+                break;
+
+            default:
+                break;
+        }
+    }
 }
